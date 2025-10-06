@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>500 - Error interno</title>
+    <link rel="stylesheet" th:href="@{/css/error.css}">
+</head>
+<body>
+    <div class="error-page">
+        <header class="error-header">
+            <h1>500</h1>
+            <h2>Error interno del servidor</h2>
+        </header>
+
+        <section class="error-body">
+            <p>Algo salió mal en el servidor. Estamos trabajando para solucionarlo.</p>
+            <p>Si el problema persiste, copia el código de la página y contacta soporte.</p>
+
+            <div class="error-actions">
+                <a th:href="@{/logout}" class="btn">Volver al inicio</a>
+            </div>
+        </section>
+
+        <footer class="error-footer">
+            <small>Timestamp: <span th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd HH:mm:ss')}"></span></small>
+        </footer>
+    </div>
+</body>
+</html>

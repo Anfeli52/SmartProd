@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>404 - Página no encontrada</title>
+    <link rel="stylesheet" th:href="@{/css/error.css}">
+</head>
+<body>
+    <div class="error-page">
+        <header class="error-header">
+            <h1>404</h1>
+            <h2>Página no encontrada</h2>
+        </header>
+
+        <section class="error-body">
+            <p>La página que intentas visitar no existe o fue movida.</p>
+
+            <div class="search-suggestion">
+                <p>Prueba volver al inicio o revisa la URL.</p>
+            </div>
+
+            <div class="error-actions">
+                <a th:href="@{/logout}" class="btn">Ir al inicio</a>
+            </div>
+        </section>
+
+        <footer class="error-footer">
+            <small>Si crees que esto es un bug, por favor reportalo.</small>
+        </footer>
+    </div>
+</body>
+</html>

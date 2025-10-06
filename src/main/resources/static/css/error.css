@@ -1,0 +1,107 @@
+/* error.css - estilos básicos para las páginas de error */
+:root{
+    --bg: #0f1724;
+    --card: #ffffff;
+    --muted: #6b7280;
+    --accent: #2563eb;
+    --accent-contrast: #ffffff;
+    --outline: transparent;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+
+body {
+    background: linear-gradient(180deg, #0b1220 0%, #0f1724 100%);
+    color: #111827;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+}
+
+.error-page {
+    width: 100%;
+    max-width: 920px;
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(2,6,23,0.45);
+    overflow: hidden;
+    padding: 32px;
+}
+
+.error-header {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    border-bottom: 1px solid #e6e9ef;
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+}
+
+.error-header h1 {
+    font-size: 72px;
+    line-height: 1;
+    color: var(--accent);
+    margin-right: 6px;
+}
+
+.error-header h2 {
+    font-size: 20px;
+    color: #111827;
+    font-weight: 600;
+}
+
+.error-body {
+    padding: 8px 2px 20px 2px;
+    color: #374151;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.error-body p {
+    margin-bottom: 12px;
+}
+
+.error-actions {
+    margin-top: 18px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    display: inline-block;
+    text-decoration: none;
+    background: var(--accent);
+    color: var(--accent-contrast);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: transform .08s ease, box-shadow .08s ease;
+    box-shadow: 0 6px 14px rgba(37,99,235,0.18);
+}
+
+.btn:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(37,99,235,0.22); }
+
+.btn.outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1.5px solid #dbeafe;
+    box-shadow: none;
+}
+
+.error-footer {
+    margin-top: 22px;
+    border-top: 1px dashed #eef2ff;
+    padding-top: 12px;
+    color: var(--muted);
+    font-size: 13px;
+    text-align: left;
+}
+
+@media (max-width: 640px){
+    .error-header { gap: 14px; }
+    .error-header h1 { font-size: 48px; }
+    .error-page { padding: 20px; border-radius: 10px; }
+}

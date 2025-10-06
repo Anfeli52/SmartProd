@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>403 - Acceso denegado</title>
+    <link rel="stylesheet" th:href="@{/css/error.css}">
+</head>
+<body>
+    <div class="error-page">
+        <header class="error-header">
+            <h1>403</h1>
+            <h2>Acceso denegado</h2>
+        </header>
+
+        <section class="error-body">
+            <p>No tienes permisos para ver este recurso.</p>
+            <p>Si piensas que es un error, contacta al administrador o inicia sesión con una cuenta con permisos.</p>
+
+            <div class="error-actions">
+                <a th:href="@{/logout}" class="btn">Volver al inicio</a>
+            </div>
+        </section>
+
+        <footer class="error-footer">
+            <small>Si necesitas ayuda, escribe a soporte@smartprod.com</small>
+        </footer>
+    </div>
+</body>
+</html>

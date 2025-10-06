@@ -10,12 +10,12 @@ public class DashboardController {
     @GetMapping("/supervisor/dashboard")
     @PreAuthorize("hasRole('SUPERVISOR')")
     public String supervisorDashboard() {
-        return "supervisor_dashboard";
+        return "supervisor/supervisor_dashboard";
     }
 
     @GetMapping("/analista/dashboard")
     @PreAuthorize("hasRole('ANALISTA')")
     public String analistaDashboard() {
-        return "analista_dashboard";
+        return "analista/analista_dashboard";
     }
 }

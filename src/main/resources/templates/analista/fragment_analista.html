@@ -1,0 +1,49 @@
+
+<!-- Menú lateral -->
+<div class="sidebar" th:fragment="menu">
+    <div class="logo-details">
+        <img th:src="@{/images/SmartProd-logo.png}" alt="">
+        <span class="logo_name">SmartProd</span>
+    </div>
+    <ul class="nav-links">
+        <li>
+            <a th:href="@{/analista/dashboard}">
+                <i class='bx bx-grid'></i>
+                <span class="link_name">Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a th:href="@{/analista/registros}">
+                <i class='bx bx-box'></i>
+                <span class="link_name">Ver Registro</span>
+            </a>
+        </li>
+        <li class="logout">
+            <a th:href="@{/logout}">
+                <i class='bx bx-arrow-left-stroke-circle'></i>
+                <span class="link_name">Log Out</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<!-- Barra superior -->
+<section class="home-section" th:fragment="sidebar(content)">
+    <nav>
+        <div class="sidebar-button">
+            <i class='bx bx-menu sidebarBtn'></i>
+            <span class="dashboard">Dashboard</span>
+        </div>
+        <div class="search-box">
+            <input type="text" placeholder="Search...">
+            <i class='bx bx-search'></i>
+        </div>
+        <div class="profile-details">
+            <img th:src="@{/images/user-logo.png}" alt="">
+            <span class="admin_name" sec:authentication="name"></span>
+            <i class='bx bx-chevron-down'></i>
+        </div>
+    </nav>
+
+    <div th:replace="${content}"></div>
+</section>

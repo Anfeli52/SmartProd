@@ -19,8 +19,7 @@ public class SecurityConfig {
     private final UserDetailsServiceImpl userDetailsService;
     private final CustomAuthenticationSuccessHandler successHandler;
 
-    public SecurityConfig(UserDetailsServiceImpl userDetailsService,
-                          CustomAuthenticationSuccessHandler successHandler) {
+    public SecurityConfig(UserDetailsServiceImpl userDetailsService, CustomAuthenticationSuccessHandler successHandler) {
         this.userDetailsService = userDetailsService;
         this.successHandler = successHandler;
     }
@@ -42,7 +41,6 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authenticationProvider(authenticationProvider())
-            // Define exactamente UNA estrategia de autorización (la nueva)
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
                     "/login",
@@ -66,7 +64,6 @@ public class SecurityConfig {
                 .permitAll()
             );
 
-        // Mantengo tu configuración actual de CSRF
         http.csrf(csrf -> csrf.disable());
 
         return http.build();
