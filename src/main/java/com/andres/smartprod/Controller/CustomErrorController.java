@@ -20,6 +20,6 @@ public class CustomErrorController implements ErrorController {
                 case 500: return "error/500";
             }
         }
-        return "error/error"; // genérico
+        return "error/error";
     }
 }

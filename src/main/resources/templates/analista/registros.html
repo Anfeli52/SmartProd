@@ -6,6 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/dashboard.css}">
     <link rel="stylesheet" th:href="@{/css/registros.css}">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Dashboard</title>
 </head>
 <body>
@@ -13,13 +14,11 @@
     <section th:replace="~{analista/fragment_analista :: sidebar(~{::content})}">
 
         <div class="home-content" th:fragment="content">
-
             <h1>Listado de Registros de Ítems</h1>
             <p>Datos obtenidos de la base de datos.</p>
 
-            <!--Boton para agregar items-->
             <div class="add-button">
-                <a th:href="@{/analista/registro/nuevo}" class="btn">Agregar Ítem</a>
+                <a th:href="@{/analista/registros/nuevo}" class="btn">Agregar Ítem</a>
             </div>
             <table class="data-table">
                 <thead>
@@ -32,8 +31,6 @@
                         <th>Horneo</th>
                         <th>Estado</th>
                         <th></th>
-                        <th></th>
-                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -45,17 +42,18 @@
                         <td th:text="${item.pintura}"></td>
                         <td th:text="${item.horneo}"></td>
                         <td th:text="${item.estado}"></td>
-                        <td> <a href="" class="btn-calc">Calcular</a> </td>
-                        <td> <a href="" class="btn-edit">Editar</a> </td>
-                        <td> <a href="" class="btn-delete"> Eliminar </a> </td>
+                        <td class="action-buttons">
+                            <a th:href="@{/analista/items/calcular/{id}(id=${item.numeroItem})}" class="btn-calc">Calcular</a>
+                            <a th:href="@{/analista/items/edit/{id}(id=${item.numeroItem})}" class="btn-edit">Editar</a>
+                            <button class="btn-delete" th:onclick="|confirmDeleteItem('${item.numeroItem}')|">Eliminar</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>
-
         </div>
-
     </section>
 
     <script th:src="@{/js/script.js}"></script>
+
 </body>
 </html>

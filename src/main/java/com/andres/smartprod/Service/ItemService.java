@@ -19,4 +19,17 @@ public class ItemService {
     public List<Item> findAllItems(){
         return itemRepository.findAll();
     }
+
+    public Item saveItem(Item item){
+        return itemRepository.save(item);
+    }
+
+    public void deleteItem(Long itemId){
+        itemRepository.deleteById(itemId);
+    }
+
+    public boolean existsItem(Long itemId){
+        return itemRepository.existsById(itemId);
+    }
+
 }

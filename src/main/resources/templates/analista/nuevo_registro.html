@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/registros.css}">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div th:replace="~{analista/fragment_analista :: menu}"></div>
+    <section th:replace="~{analista/fragment_analista :: sidebar(~{::content})}">
+
+        <div class="home-content" th:fragment="content">
+
+            <h1>Registrar Nuevo Ítem de Producción</h1>
+
+            <form th:action="@{/analista/registros/nuevo}" th:object="${item}" method="post" class="item-form">
+                <label for="numeroItem">Número de Ítem:</label>
+                <input type="number" id="numeroItem" th:field="*{numeroItem}" required>
+
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" th:field="*{nombre}" required>
+
+                <label for="cantidadPintura">Cantidad de Pintura (kg):</label>
+                <input type="number" step="0.01" id="cantidadPintura" th:field="*{cantidadPintura}" required>
+
+                <label for="lavado">Tiempo de Lavado (min):</label>
+                <input type="number" step="0.1" id="lavado" th:field="*{lavado}" required>
+
+                <label for="pintura">Tiempo de Pintura (min):</label>
+                <input type="number" step="0.1" id="pintura" th:field="*{pintura}" required>
+
+                <label for="horneo">Tiempo de Horneo (min):</label>
+                <input type="number" step="0.1" id="horneo" th:field="*{horneo}" required>
+
+                <label for="estado">Estado:</label>
+                <select id="estado" th:field="*{estado}">
+                    <option value="ACTIVO">ACTIVO</option>
+                    <option value="INACTIVO">INACTIVO</option>
+                </select>
+                <button type="submit" class="btn-primary">Guardar Ítem</button>
+            </form>
+        </div>
+    </section>
+
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>

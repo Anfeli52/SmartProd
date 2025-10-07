@@ -1,10 +1,14 @@
-/* Contenedor general */
-.home-content {
-    padding: 20px;
+/* ============================= */
+/* Estilos generales             */
+/* ============================= */
+body {
     font-family: Arial, sans-serif;
 }
 
-/* Encabezado */
+.home-content {
+    padding: 20px;
+}
+
 .home-content h1 {
     font-size: 24px;
     margin-bottom: 10px;
@@ -16,11 +20,13 @@
     color: #555;
 }
 
-/* Estilo tabla */
+/* ============================= */
+/* Tabla de registros            */
+/* ============================= */
 .data-table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
+    margin-top: 20px;
     background-color: #fff;
     box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     border-radius: 6px;
@@ -33,14 +39,12 @@
     text-align: left;
 }
 
-.data-table th,
-.data-table td {
+.data-table th, .data-table td {
     padding: 12px 15px;
     border-bottom: 1px solid #ddd;
     font-size: 14px;
 }
 
-/* Filas alternadas */
 .data-table tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
@@ -49,8 +53,10 @@
     background-color: #f1f1f1;
 }
 
-/* Botones generales */
-.data-table td a {
+/* ============================= */
+/* Botones                       */
+/* ============================= */
+.btn-edit, .btn-delete, .btn-calc, .btn {
     display: inline-block;
     text-decoration: none;
     padding: 6px 12px;
@@ -59,42 +65,81 @@
     font-weight: 500;
     transition: 0.2s ease;
     color: #fff;
-}
-
-/* Editar */
-.data-table td a.btn-edit {
-    background-color: #3498db;
-}
-.data-table td a.btn-edit:hover {
-    background-color: #2980b9;
-}
-
-/* Eliminar */
-.data-table td a.btn-delete {
-    background-color: #e74c3c;
-}
-.data-table td a.btn-delete:hover {
-    background-color: #c0392b;
-}
-
-/* Calcular */
-.data-table td a.btn-calc {
-    background-color: #8e44ad;
-}
-.data-table td a.btn-calc:hover {
-    background-color: #732d91;
+    border: none;
+    cursor: pointer;
 }
 
 /* Botón Agregar */
-.home-content .add-button .btn {
+.add-button .btn {
     background-color: #27ae60;
-    color: white;
     padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 4px;
     font-size: 14px;
+}
+.add-button .btn:hover {
+    background-color: #219150;
+}
+
+/* Botones de acción */
+.btn-edit { background-color: #3498db; }
+.btn-edit:hover { background-color: #2980b9; }
+
+.btn-delete { background-color: #e74c3c; }
+.btn-delete:hover { background-color: #c0392b; }
+
+.btn-calc { background-color: #8e44ad; }
+.btn-calc:hover { background-color: #732d91; }
+
+/* ============================= */
+/* Formulario de Ítems           */
+/* ============================= */
+.item-form {
+    max-width: 600px;
+    margin: 30px 0;
+    padding: 30px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e0e0e0;
+}
+
+.item-form label {
+    display: block;
+    font-weight: 600;
+    margin: 15px 0 5px;
+    color: #333;
+    font-size: 0.95em;
+}
+
+.item-form input, .item-form select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1em;
+    transition: border-color 0.3s;
+}
+
+.item-form input:focus, .item-form select:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+/* Botón Guardar */
+.btn-primary {
+    background-color: #2ecc71;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 700;
+    margin-top: 20px;
+    border: none;
     transition: background-color 0.3s ease;
 }
-.home-content .add-button .btn:hover {
-    background-color: #219150;
+.btn-primary:hover {
+    background-color: #27ae60;
 }

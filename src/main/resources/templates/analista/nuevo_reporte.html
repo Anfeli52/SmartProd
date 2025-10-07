@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/registros.css}">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+<div th:replace="~{analista/fragment_analista :: menu}"></div>
+<section th:replace="~{analista/fragment_analista :: sidebar(~{::content})}">
+
+    <div class="home-content" th:fragment="content">
+
+        <h1>Registrar Nuevo Reporte de Producción</h1>
+
+        <form th:action="@{/analista/reportes/nuevo}" th:object="${reporte}" method="post">
+            <input type="hidden" th:field="*{id}">
+
+            <label for="fecha">Fecha del Reporte:</label>
+            <input type="date" id="fecha" th:field="*{fecha}" required>
+
+            <label for="horaInicio">Hora de Inicio:</label>
+            <input type="time" id="horaInicio" th:field="*{horaInicio}" required>
+
+            <label for="horaFinal">Hora de Finalización:</label>
+            <input type="time" id="horaFinal" th:field="*{horaFinal}" required>
+
+            <button type="submit">Guardar Reporte</button>
+        </form>
+    </div>
+</section>
+
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>
