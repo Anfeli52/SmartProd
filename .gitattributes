@@ -1,2 +1,16 @@
+# Maven Wrapper
 /mvnw text eol=lf
 *.cmd text eol=crlf
+
+# Código fuente y configuraciones
+*.java text eol=lf
+*.xml text eol=lf
+*.yml text eol=lf
+*.properties text eol=lf
+
+# Scripts de Linux
+*.sh text eol=lf
+
+# Documentación
+*.md text eol=lf
+*.txt text eol=lf

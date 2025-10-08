@@ -22,6 +22,22 @@ function confirmDeleteItem(itemId) {
     });
 }
 
+
+function openCalculationModal(itemId) {
+    document.getElementById('itemId').value = itemId;
+    document.getElementById('modalItemNumber').textContent = itemId;
+    document.getElementById('inputPieces').value = ''; // Limpiar campo
+
+    // Limpiar resultados anteriores
+    const resultDiv = document.getElementById('calculationResult');
+    resultDiv.style.display = 'none';
+    resultDiv.innerHTML = '';
+    resultDiv.classList.remove('alert-success', 'alert-danger');
+}
+
+
+
+
 function confirmDeleteReport(itemId) {
     Swal.fire({
         title: '¿Estás seguro?',
