@@ -1,5 +1,6 @@
 package com.andres.smartprod.Model;
 
+import com.andres.smartprod.Enum.Actividad;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +23,10 @@ public class Report {
     @Column(name = "nombre_operario")
     private String nombreOperario;
 
-    private String actividad;
+    @Enumerated(EnumType.STRING)
+    private Actividad actividad;
+
+    private Long cantidad;
 
     private LocalDate fecha;
 

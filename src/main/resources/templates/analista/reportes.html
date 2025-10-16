@@ -25,6 +25,7 @@
             <tr>
                 <th>Nombre Operario</th>
                 <th>Actividad</th>
+                <th>Cantidad</th>
                 <th>Fecha</th>
                 <th>Id Item</th>
                 <th>Hora Inicio</th>
@@ -42,6 +43,7 @@
             <tr th:each="reporte : ${reportes}">
                 <td th:text="${reporte.nombreOperario}"></td>
                 <td th:text="${reporte.actividad}"></td>
+                <td th:text="${reporte.cantidad}">
                 <td th:text="${reporte.fecha}"></td>
                 <td th:text="${reporte.numeroItem}"></td>
                 <td th:text="${reporte.horaInicio}"></td>

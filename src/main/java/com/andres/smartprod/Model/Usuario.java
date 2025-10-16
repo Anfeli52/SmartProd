@@ -1,9 +1,7 @@
 package com.andres.smartprod.Model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.andres.smartprod.Enum.Rol;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -23,7 +21,8 @@ public class Usuario {
     @Column(name="contrasena", nullable = false, length = 100)
     private String contrasena;
 
-    @Column(name="rol", nullable = false, length = 10)
-    private String rol;
+    @Enumerated (EnumType.STRING)
+    @Column(name="rol", nullable = false)
+    private Rol rol;
 
 }

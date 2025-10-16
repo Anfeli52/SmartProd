@@ -1,9 +1,12 @@
 let sidebar = document.querySelector(".sidebar");
 let sidebarBtn = document.querySelector(".sidebarBtn");
+let modal = document.getElementById('calculationModal');
+let modalCloseBtn = document.querySelector("#modal-close");
 
 sidebarBtn.addEventListener('click', () =>{
     sidebar.classList.toggle("active");
 })
+modalCloseBtn.addEventListener('click', closeCalculationModal)
 
 function confirmDeleteItem(itemId) {
     Swal.fire({
@@ -27,16 +30,12 @@ function openCalculationModal(itemId) {
     document.getElementById('itemId').value = itemId;
     document.getElementById('modalItemNumber').textContent = itemId;
     document.getElementById('inputPieces').value = ''; // Limpiar campo
-
-    // Limpiar resultados anteriores
-    const resultDiv = document.getElementById('calculationResult');
-    resultDiv.style.display = 'none';
-    resultDiv.innerHTML = '';
-    resultDiv.classList.remove('alert-success', 'alert-danger');
+    modal.showModal();
 }
 
-
-
+function closeCalculationModal() {
+    modal.close();
+}
 
 function confirmDeleteReport(itemId) {
     Swal.fire({
