@@ -1,6 +1,7 @@
 package com.andres.smartprod.Controller;
 
 import com.andres.smartprod.Model.Report;
+import com.andres.smartprod.Service.ItemService;
 import com.andres.smartprod.Service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,10 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class ReportViewController {
 
     private final ReportService reportService;
+    private final ItemService itemService;
 
     @Autowired
-    public ReportViewController(ReportService reportService){
+    public ReportViewController(ReportService reportService, ItemService itemService) {
         this.reportService = reportService;
+        this.itemService = itemService;
     }
 
     @GetMapping("/analista/reportes")
@@ -32,6 +35,7 @@ public class ReportViewController {
     @PreAuthorize("hasRole('ANALISTA')")
     public String mostrarFormularioNuevoReporte(Model model){
         model.addAttribute("reporte", new Report());
+        model.addAttribute("items", itemService.findAllItems());
         return "analista/nuevo_reporte";
     }
 
@@ -48,7 +52,7 @@ public class ReportViewController {
         Report reporte = reportService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("ID de Reporte inválido:" + id));
         model.addAttribute("reporte", reporte);
-        return "supervisor/nuevo_reporte";
+        return "analista/editar_reporte";
     }
 
     @GetMapping("/analista/reportes/delete/{id}")

@@ -50,7 +50,7 @@
                                 Calcular
                             </button>
 
-                            <a th:href="@{/analista/items/edit/{id}(id=${item.numeroItem})}" class="btn-edit">Editar</a>
+                            <a th:href="@{/analista/registros/edit/{id}(id=${item.numeroItem})}" class="btn-edit">Editar</a>
                             <button class="btn-delete" th:onclick="|confirmDeleteItem('${item.numeroItem}')|">Eliminar</button>
                         </td>
                     </tr>

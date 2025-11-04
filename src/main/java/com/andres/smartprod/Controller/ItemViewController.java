@@ -44,14 +44,13 @@ public class ItemViewController {
         return "redirect:/analista/registros";
     }
 
-    /*
-    @GetMapping("/analista/registros/editar")
+    @GetMapping("/analista/registros/edit/{id}")
     @PreAuthorize("hasRole('ANALISTA')")
     public String mostrarFormularioEditarItem(@ModelAttribute("item") Item item, Model model){
         model.addAttribute("item", item);
         return "analista/editar_registro";
     }
-    */
+
     @GetMapping("analista/registros/delete/{id}")
     @PreAuthorize("hasRole('ANALISTA')")
     public String deleteItem(@PathVariable("id") Long id){

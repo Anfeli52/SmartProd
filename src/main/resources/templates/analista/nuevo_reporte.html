@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/dashboard.css}">
-    <link rel="stylesheet" th:href="@{/css/registros.css}">
+    <link rel="stylesheet" th:href="@{/css/reportes.css}">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
@@ -15,11 +15,30 @@
 
         <h1>Registrar Nuevo Reporte de Producción</h1>
 
-        <form th:action="@{/analista/reportes/nuevo}" th:object="${reporte}" method="post">
+        <form th:action="@{/analista/reportes/nuevo}" th:object="${reporte}" method="post" class="item-form">
             <input type="hidden" th:field="*{id}">
 
+            <label for="nombre_operario">Nombre Operario</label>
+            <input type="text" id="nombre_operario" th:field="*{nombreOperario}" required>
+
+            <label for="actividad">Actividad</label>
+            <select id="actividad" th:field="*{actividad}" required>
+                <option value="LAVADO">LAVADO</option>
+                <option value="PINTURA">PINTURA</option>
+                <option value="HORNEO">HORNEO</option>
+            </select>
+
+            <label for="cantidad">Cantidad</label>
+            <input type="number" id="cantidad" th:field="*{cantidad}" required>
+            
             <label for="fecha">Fecha del Reporte:</label>
             <input type="date" id="fecha" th:field="*{fecha}" required>
+
+            <label for="numero_item">Número del Item</label>
+            <select id="numero_item" th:field="*{item}" required>
+                <option th:each="item : ${items}" th:value="${item.numeroItem}" th:text="${item.numeroItem}"></option>
+            </select>
+<!--            <input type="number" id="numero_item">-->
 
             <label for="horaInicio">Hora de Inicio:</label>
             <input type="time" id="horaInicio" th:field="*{horaInicio}" required>
@@ -27,7 +46,29 @@
             <label for="horaFinal">Hora de Finalización:</label>
             <input type="time" id="horaFinal" th:field="*{horaFinal}" required>
 
-            <button type="submit">Guardar Reporte</button>
+            <label for="motivoParo">Motivo Paro</label>
+            <input type="text" id="motivoParo" th:field="*{motivoParo}">
+
+            <label for="tiempoParo">Tiempo Paro</label>
+            <input type="number" step="0.1" id="tiempoParo" th:field="*{tiempoParo}">
+
+            <label for="conforme">Conforme</label>
+            <input type="number" id="conforme" th:field="*{conforme}" required>
+
+            <label for="no_conforme">No Conforme</label>
+            <input type="number" id="no_conforme" th:field="*{noConforme}" required>
+
+            <label for="motivo">Motivo</label>
+            <input type="text" id="motivo" th:field="*{motivo}">
+
+            <label for="disposicion_pnc">Disposición PNC</label>
+            <select id="disposicion_pnc" th:field="*{disposicionPnc}" required>
+                <option value="REINCORPORAR">REINCORPORAR</option>
+                <option value="DESECHAR">DESECHAR</option>
+                <option value="NO_APLICA">NO APLICA</option>
+            </select>
+
+            <button type="submit" class="btn-primary">Guardar Reporte</button>
         </form>
     </div>
 </section>

@@ -1,6 +1,7 @@
 package com.andres.smartprod.Model;
 
 import com.andres.smartprod.Enum.Actividad;
+import com.andres.smartprod.Enum.DisposicionPNC;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,8 +31,9 @@ public class Report {
 
     private LocalDate fecha;
 
-    @Column(name="numero_item")
-    private Long numeroItem;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "numero_item", referencedColumnName = "numero_item", nullable = false)
+    private Item item;
 
     @Column(name = "hora_inicio")
     private LocalTime horaInicio;
@@ -53,6 +55,7 @@ public class Report {
     private String motivo;
 
     @Column(name = "disposicion_pnc")
-    private String disposicionPnc;
+    @Enumerated(EnumType.STRING)
+    private DisposicionPNC disposicionPnc;
 
 }
