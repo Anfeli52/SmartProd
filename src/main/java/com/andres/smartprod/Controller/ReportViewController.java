@@ -52,6 +52,7 @@ public class ReportViewController {
         Report reporte = reportService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("ID de Reporte inválido:" + id));
         model.addAttribute("reporte", reporte);
+        model.addAttribute("items", itemService.findAllItems());
         return "analista/editar_reporte";
     }
 

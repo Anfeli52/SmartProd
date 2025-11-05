@@ -44,9 +44,11 @@ public class ItemViewController {
         return "redirect:/analista/registros";
     }
 
-    @GetMapping("/analista/registros/edit/{id}")
+    @GetMapping("/analista/registros/edit/{numeroItem}")// El PathVariable debe coincnumeroItemir con el tipo de la PK (Long)
     @PreAuthorize("hasRole('ANALISTA')")
-    public String mostrarFormularioEditarItem(@ModelAttribute("item") Item item, Model model){
+    public String showEditForm(@PathVariable("numeroItem") Long numeroItem, Model model) {
+        Item item = itemService.findById(numeroItem) // Asumo que tienes un findById(Long)
+                .orElseThrow(() -> new IllegalArgumentException("ID de Ítem inválnumeroItemo:" + numeroItem));
         model.addAttribute("item", item);
         return "analista/editar_registro";
     }

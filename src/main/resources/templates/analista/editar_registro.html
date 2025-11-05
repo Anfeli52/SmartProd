@@ -1,10 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/registros.css}">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
+<div th:replace="~{analista/fragment_analista :: menu}"></div>
+<section th:replace="~{analista/fragment_analista :: sidebar(~{::content})}">
 
+    <div class="home-content" th:fragment="content">
+
+        <h1 th:text="${item.numeroItem == null ? 'Registrar Nuevo Ítem de Producción' : 'Editar Ítem #' + item.numeroItem}">
+            Formulario de Ítem
+        </h1>
+
+        <form th:action="@{/analista/registros/nuevo}" th:object="${item}" method="post" class="item-form">
+
+            <input type="hidden" id="numeroItem" th:field="*{numeroItem}" required
+                   th:attr="readonly=${item.numeroItem != null ? 'readonly' : null}">
+
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" th:field="*{nombre}" required>
+
+            <label for="cantidadPintura">Cantidad de Pintura (kg):</label>
+            <input type="number" step="0.01" id="cantidadPintura" th:field="*{cantidadPintura}" required>
+
+            <label for="lavado">Tiempo de Lavado (min):</label>
+            <input type="number" step="0.1" id="lavado" th:field="*{lavado}" required>
+
+            <label for="pintura">Tiempo de Pintura (min):</label>
+            <input type="number" step="0.1" id="pintura" th:field="*{pintura}" required>
+
+            <label for="horneo">Tiempo de Horneo (min):</label>
+            <input type="number" step="0.1" id="horneo" th:field="*{horneo}" required>
+
+            <label for="estado">Estado:</label>
+            <select id="estado" th:field="*{estado}">
+                <option th:each="est : ${T(com.andres.smartprod.Enum.Estado).values()}"
+                        th:value="${est}"
+                        th:text="${est.name().replace('_', ' ')}"></option>
+            </select>
+
+            <button type="submit" class="btn-primary" th:text="${item.numeroItem == null ? 'Crear Ítem' : 'Actualizar Ítem'}">Guardar Ítem</button>
+        </form>
+    </div>
+</section>
+
+<script th:src="@{/js/script.js}"></script>
 </body>
 </html>
