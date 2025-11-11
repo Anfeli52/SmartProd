@@ -53,3 +53,20 @@ function confirmDeleteReport(itemId) {
         }
     });
 }
+
+function confirmDeleteUser(correo) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡No podrás revertir la eliminación del usuario con correo: " + correo + "!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = 'usuarios/delete/' + correo;
+        }
+    });
+}

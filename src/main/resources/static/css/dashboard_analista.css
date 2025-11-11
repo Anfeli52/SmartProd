@@ -1,0 +1,130 @@
+.home-section .home-content {
+    position: relative;
+    padding-top: 20px;
+}
+
+.home-content .overview-boxes {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.overview-boxes .box {
+    width: calc(100% / 4 - 15px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 14px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.overview-boxes .box-topic {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.home-content .box .number {
+    display: inline-block;
+    font-size: 35px;
+    margin-top: -6px;
+    font-weight: 500;
+}
+
+.home-content .box .indicator {
+    display: flex;
+    align-items: center;
+}
+
+.home-content .box .indicator i {
+    height: 20px;
+    width: 20px;
+    background: #8FDACB;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 20px;
+    margin-right: 5px;
+}
+
+.box .indicator i.down {
+    background: #e87d88;
+}
+
+.home-content .box .indicator .text {
+    font-size: 12px;
+}
+
+.overview-boxes .box .bulb{
+    font-size: 32px;
+    font-weight: 500;
+    height: 50px;
+    width: 50px;
+    background: #cce5ff;
+    color: #66b0ff;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+
+.overview-boxes .box .folder{
+    font-size: 32px;
+    font-weight: 500;
+    height: 50px;
+    width: 50px;
+    background: #C0F2D8;
+    color: #28D47D;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+.overview-boxes .box .hat{
+    font-size: 32px;
+    font-weight: 500;
+    height: 50px;
+    width: 50px;
+    background: #ffe8b3;
+    color: #ffc233;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+.overview-boxes .box .trash{
+    font-size: 32px;
+    font-weight: 500;
+    height: 50px;
+    width: 50px;
+    background: #f7d4d7;
+    color: #e05260;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+.charts-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Espacio entre los dos gráficos */
+    margin-top: 30px;
+    padding: 0 15px; /* Pequeño padding lateral */
+}
+
+.chart-box {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 49%; /* Divide el ancho para que quepan dos */
+    max-height: 400px; /* Limita la altura del contenedor */
+}
+
+/* Para que la tabla de reportes que ya tienes no choque con los gráficos */
+.sales-boxes { /* Si usaste este nombre para la tabla de reportes */
+    margin-top: 30px;
+}

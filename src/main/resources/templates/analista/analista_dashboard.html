@@ -1,20 +1,143 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/dashboard_analista.css}">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <title>Dashboard</title>
 </head>
+
 <body>
     <div th:replace="~{analista/fragment_analista :: menu}"></div>
     <section th:replace="~{analista/fragment_analista :: sidebar(~{::content})}">
         <div class="home-content" th:fragment="content">
-            
+            <div class="overview-boxes">
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Items Registrados</div>
+                        <div class="number" th:text="${itemsTotales}">0</div>
+                        <div class="indicator">
+                            <i class='bxr  bx-arrow-up-stroke'></i>
+                            <span class="text">Since last month</span>
+                        </div>
+                    </div>
+                    <i class='bxr  bx-light-bulb-on bulb'></i> 
+                </div>
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Reportes Disponibles</div>
+                        <div class="number" th:text="${registrosTotales}">0</div>
+                        <div class="indicator">
+                            <i class='bxr  bx-arrow-up-stroke'></i>
+                            <span class="text">Up from yesterday</span>
+                        </div>
+                    </div>
+                    <i class='bxr  bx-folder-check folder'></i> 
+                </div>
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Horas Trabajadas</div>
+                        <div class="number" th:text="${horasTrabajadas}">0</div>
+                        <div class="indicator">
+                            <i class='bxr bx-arrow-up-stroke'></i>
+                            <span class="text">Up from yesterday</span>
+                        </div>
+                    </div>
+                    <i class='bxr  bx-hard-hat hat'></i> 
+                </div>
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Piezas Desechadas</div>
+                        <div class="number" th:text="${piezasDesechadas}">0</div>
+                        <div class="indicator">
+                            <i class='bxr  bx-arrow-down-stroke down'></i> 
+                            <span class="text">Down From Today</span>
+                        </div>
+                    </div>
+                    <i class='bxr  bx-trash-x trash'></i> 
+                </div>
+            </div>
+            <div class="charts-container">
+                <div class="chart-box">
+                    <canvas id="produccionActividadChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <canvas id="calidadChart"></canvas>
+                </div>
+            </div>
         </div>
     </section>
 
     <script th:src="@{/js/script.js}"></script>
+    <script th:inline="javascript">
+
+        const dataActividad = /*[[${cantidadPorActividad}]]*/ [];
+        const labelsActividad = dataActividad.map(item => item[0]);
+        const valuesActividad = dataActividad.map(item => item[1]);
+
+        const ctxBarras = document.getElementById('produccionActividadChart');
+        new Chart(ctxBarras, {
+            type: 'bar',
+            data: {
+                labels: labelsActividad,
+                datasets: [{
+                    label: 'Piezas Producidas',
+                    data: valuesActividad,
+                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Producción Total por Actividad'
+                    },
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+
+
+        const dataCalidad = /*[[${calidadTotal}]]*/ [];
+        const conforme = dataCalidad[0] ?? 0;
+        const noConforme = dataCalidad[1] ?? 0;
+
+        const ctxDona = document.getElementById('calidadChart');
+        new Chart(ctxDona, {
+            type: 'doughnut',
+            data: {
+                labels: ['Conforme', 'No Conforme'],
+                datasets: [{
+                    label: 'Unidades',
+                    data: [conforme, noConforme],
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(255, 99, 132, 0.8)'
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Proporción de Calidad Total'
+                    }
+                }
+            }
+        });
+
+    </script>
 </body>
 </html>

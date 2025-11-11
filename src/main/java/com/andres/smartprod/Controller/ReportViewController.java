@@ -3,6 +3,7 @@ package com.andres.smartprod.Controller;
 import com.andres.smartprod.Model.Report;
 import com.andres.smartprod.Service.ItemService;
 import com.andres.smartprod.Service.ReportService;
+import com.andres.smartprod.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -17,11 +18,13 @@ public class ReportViewController {
 
     private final ReportService reportService;
     private final ItemService itemService;
+    private final UserService userService;
 
     @Autowired
-    public ReportViewController(ReportService reportService, ItemService itemService) {
+    public ReportViewController(ReportService reportService, ItemService itemService, UserService userService) {
         this.reportService = reportService;
         this.itemService = itemService;
+        this.userService = userService;
     }
 
     @GetMapping("/analista/reportes")
@@ -62,4 +65,12 @@ public class ReportViewController {
         reportService.deleteById(id);
         return "redirect:/analista/reportes";
     }
+
+    @GetMapping("/supervisor/reportes")
+    @PreAuthorize("hasRole('SUPERVISOR')")
+    public String verReportesSupervisor(Model model){
+        model.addAttribute("reportes", reportService.findAllReportes());
+        return "supervisor/reportes";
+    }
+
 }

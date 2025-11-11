@@ -1,69 +1,99 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f9;
+    font-family: 'Poppins', Arial, sans-serif;
+    margin: 0;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    margin: 0;
+    background: linear-gradient(to right, #ff7a00 50%, #004aad 50%);
 }
 
+/* Contenedor general */
+.login-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Logo */
+.logo-empresa {
+    width: 140px;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+}
+
+/* Cuadro de login */
 .login-container {
-    background: white;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 350px;
+    background: #fff;
+    padding: 35px 40px; /* 🔹 Un poco más de espacio lateral */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
     text-align: center;
+    width: 380px; /* 🔹 Mantiene buena proporción visual */
+    box-sizing: border-box;
 }
 
+/* Título */
 h1 {
-    color: #333;
+    color: #004aad;
+    font-size: 1.8em;
     margin-bottom: 20px;
-    font-size: 1.5em;
 }
 
+/* Etiquetas */
 label {
     display: block;
     text-align: left;
-    margin-top: 15px;
+    margin-top: 10px;
     margin-bottom: 5px;
     font-weight: bold;
-    color: #555;
+    color: #333;
 }
 
+/* Inputs */
 input[type="text"],
 input[type="password"] {
+    display: block;
     width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
+    box-sizing: border-box;
+    padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+    border-radius: 6px;
+    margin-bottom: 12px;
+    font-size: 0.95em;
 }
 
+/* Botón */
 button[type="submit"] {
+    display: block;
     width: 100%;
-    padding: 10px;
-    background-color: #007bff; /* Color primario de Spring */
+    padding: 12px;
+    background: linear-gradient(90deg, #004aad, #ff7a00);
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
-    margin-top: 20px;
+    font-weight: bold;
     font-size: 1em;
-    transition: background-color 0.3s;
+    transition: opacity 0.2s ease;
 }
 
 button[type="submit"]:hover {
-    background-color: #0056b3;
+    opacity: 0.9;
 }
 
+/* Mensajes de alerta */
 .alert {
-    padding: 10px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
     margin-bottom: 15px;
-    border-radius: 4px;
+    border-radius: 6px;
     text-align: left;
+    font-size: 0.9em;
 }
 
 .alert.error {

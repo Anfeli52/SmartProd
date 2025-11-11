@@ -35,4 +35,8 @@ public class ItemService {
         return itemRepository.existsById(itemId);
     }
 
+    public long contartTotalItems(){
+        return itemRepository.count();
+    }
+
 }

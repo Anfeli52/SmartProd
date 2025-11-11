@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/dashboard_supervisor.css}">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <title>Dashboard</title>
 </head>
@@ -11,7 +12,60 @@
     <div th:replace="~{supervisor/fragment_supervisor :: menu}"></div>
     <section th:replace="~{supervisor/fragment_supervisor :: sidebar(~{::content})}">
         <div class="home-content" th:fragment="content">
-            <h1>Hola</h1>
+            <div class="overview-boxes">
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Items Registrados</div>
+                        <div class="number" th:text="${itemsTotales}">0</div>
+                        <div class="indicator">
+                            <i class='bxr  bx-arrow-up-stroke'></i>
+                            <span class="text">Since last month</span>
+                        </div>
+                    </div>
+                    <i class='bxr  bx-light-bulb-on bulb'></i> 
+                </div>
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Reportes Disponibles</div>
+                        <div class="number" th:text="${registrosTotales}">0</div>
+                        <div class="indicator">
+                            <i class='bxr  bx-arrow-up-stroke'></i>
+                            <span class="text">Up from yesterday</span>
+                        </div>
+                    </div>
+                    <i class='bxr  bx-folder-check folder'></i>
+                </div>
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Horas Trabajadas</div>
+                        <div class="number" th:text="${horasTrabajadas}">0</div>
+                        <div class="indicator">
+                            <i class='bxr bx-arrow-up-stroke'></i>
+                            <span class="text">Up from yesterday</span>
+                        </div>
+                    </div>
+                    <i class='bxr  bx-hard-hat hat'></i> 
+                </div>
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Piezas Desechadas</div>
+                        <div class="number" th:text="${piezasDesechadas}">0</div>
+                        <div class="indicator">
+                            <i class='bxr  bx-arrow-down-stroke down'></i> 
+                            <span class="text">Down From Today</span>
+                        </div>
+                    </div>
+                    <i class='bxr  bx-trash-x trash'></i> 
+                </div>
+            </div>
+            <div class="charts-container">
+                <div class="chart-box">
+                    <canvas id="produccionActividadChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <canvas id="calidadChart"></canvas>
+                </div>
+            </div>
         </div>
     </section>
 

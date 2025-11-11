@@ -1,6 +1,6 @@
 package com.andres.smartprod.Config;
 
-import com.andres.smartprod.Service.UserDetailsServiceImpl;
+import com.andres.smartprod.Service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -16,10 +16,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-    private final UserDetailsServiceImpl userDetailsService;
+    private final UserService userDetailsService;
     private final CustomAuthenticationSuccessHandler successHandler;
 
-    public SecurityConfig(UserDetailsServiceImpl userDetailsService, CustomAuthenticationSuccessHandler successHandler) {
+    public SecurityConfig(UserService userDetailsService, CustomAuthenticationSuccessHandler successHandler) {
         this.userDetailsService = userDetailsService;
         this.successHandler = successHandler;
     }
