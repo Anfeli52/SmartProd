@@ -23,28 +23,21 @@ public class UserService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    // 1. LISTAR TODOS
     public List<Usuario> findAllUsuarios(){
         return userRepository.findAll();
     }
 
-    // 2. BUSCAR POR ID (CORREO)
-    // 🚀 Corrección: Usamos findById ya que el correo es la PK definida en JpaRepository
-    public Optional<Usuario> findById(String correo) {
-        return userRepository.findById(correo);
+    public Optional<Usuario> findByCorreo(String correo) {
+        return userRepository.findByCorreo(correo);
     }
 
-    // 3. GUARDAR/ACTUALIZAR
     public Usuario save(Usuario usuario) {
         return userRepository.save(usuario);
     }
 
-    // 4. ELIMINAR POR ID (CORREO)
     public void deleteById(String correo) {
         userRepository.deleteById(correo);
     }
-
-    // Método de Seguridad (UserDetailsService)
     @Override
     public UserDetails loadUserByUsername(String correo) throws UsernameNotFoundException {
         Usuario usuario = userRepository.findByCorreo(correo).orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));

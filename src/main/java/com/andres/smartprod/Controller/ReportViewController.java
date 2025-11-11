@@ -18,13 +18,11 @@ public class ReportViewController {
 
     private final ReportService reportService;
     private final ItemService itemService;
-    private final UserService userService;
 
     @Autowired
-    public ReportViewController(ReportService reportService, ItemService itemService, UserService userService) {
+    public ReportViewController(ReportService reportService, ItemService itemService) {
         this.reportService = reportService;
         this.itemService = itemService;
-        this.userService = userService;
     }
 
     @GetMapping("/analista/reportes")

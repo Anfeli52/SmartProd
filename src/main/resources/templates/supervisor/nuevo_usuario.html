@@ -15,6 +15,10 @@
 
             <h1>Registrar Nuevo Usuario</h1>
 
+            <div th:if="${error}" class="alert alert-danger" style="color: red; margin-bottom: 15px; border: 1px solid red; padding: 10px;">
+                <p th:text="${error}"></p>
+            </div>
+
             <form th:action="@{/supervisor/usuarios/nuevo}" th:object="${usuario}" method="post" class="item-form">
 
                 <label for="nombre">Nombre Completo</label>

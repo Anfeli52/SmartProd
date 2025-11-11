@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+    <link rel="stylesheet" th:href="@{/css/usuarios.css}">
+    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <title th:text="'Editar Usuario: ' + ${usuario.correo}">Editar Usuario</title>
+</head>
+<body>
+<div th:replace="~{supervisor/fragment_supervisor :: menu}"></div>
+<section th:replace="~{supervisor/fragment_supervisor :: sidebar(~{::content})}">
+
+    <div class="home-content" th:fragment="content">
+
+        <h1 th:text="'Editar Usuario: ' + ${usuario.correo}">Editar Usuario</h1>
+
+        <form th:action="@{/supervisor/usuarios/update}" th:object="${usuario}" method="post" class="item-form">
+
+            <input type="hidden" th:field="*{correo}">
+            <p>Editando Correo: <strong th:text="*{correo}"></strong></p>
+
+            <hr>
+
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" th:field="*{nombre}" required>
+
+            <label for="contrasena">Contraseña (Dejar vacío para no cambiar):</label>
+            <input type="password" id="contrasena" th:field="*{contrasena}"
+                   placeholder="********" autocomplete="off">
+
+            <label for="rol">Rol:</label>
+            <select id="rol" th:field="*{rol}">
+                <option th:each="rolEnum : ${T(com.andres.smartprod.Enum.Rol).values()}"
+                        th:value="${rolEnum}"
+                        th:text="${rolEnum.name()}"></option>
+            </select>
+
+            <button type="submit" class="btn-primary">Actualizar Usuario</button>
+        </form>
+
+    </div>
+</section>
+
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>
