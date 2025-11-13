@@ -50,8 +50,8 @@ public class ReportService {
         return (totalDesechado != null) ? totalDesechado : 0L;
     }
 
-    public List<Object[]> getCantidadPorActividad() {
-        return reportRepository.sumCantidadByActividad();
+    public List<Object[]> getTopUsedItems() {
+        return reportRepository.sumTop5ItemsByQuantity();
     }
 
     public List<Long> getCalidadTotal() {

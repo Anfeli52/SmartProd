@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" th:href="@{/css/dashboard.css}">
-    <link rel="stylesheet" th:href="@{/css/usuarios.css}">
-    <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" th:href="@{/css/usuarios.css}"> <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
     <title th:text="'Editar Usuario: ' + ${usuario.correo}">Editar Usuario</title>
 </head>
 <body>
@@ -16,6 +15,10 @@
 
         <h1 th:text="'Editar Usuario: ' + ${usuario.correo}">Editar Usuario</h1>
 
+        <div th:if="${error}" style="margin-bottom: 15px;">
+            <p style="color: red; border: 1px solid red; padding: 10px; background-color: #ffeaea; border-radius: 5px;"
+               th:text="${error}">Mensaje de error.</p>
+        </div>
         <form th:action="@{/supervisor/usuarios/update}" th:object="${usuario}" method="post" class="item-form">
 
             <input type="hidden" th:field="*{correo}">
@@ -28,7 +31,7 @@
 
             <label for="contrasena">Contraseña (Dejar vacío para no cambiar):</label>
             <input type="password" id="contrasena" th:field="*{contrasena}"
-                   placeholder="********" autocomplete="off">
+                   placeholder="Mín. 8 caracteres, 1 Mayúscula, 1 Número" autocomplete="off">
 
             <label for="rol">Rol:</label>
             <select id="rol" th:field="*{rol}">

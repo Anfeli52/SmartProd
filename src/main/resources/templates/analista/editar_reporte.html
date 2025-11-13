@@ -8,72 +8,72 @@
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
-<div th:replace="~{analista/fragment_analista :: menu}"></div>
-<section th:replace="~{analista/fragment_analista :: sidebar(~{::content})}">
+    <div th:replace="~{analista/fragment_analista :: menu}"></div>
+    <section th:replace="~{analista/fragment_analista :: sidebar(~{::content})}">
 
-    <div class="home-content" th:fragment="content">
+        <div class="home-content" th:fragment="content">
 
-        <h1 th:text="${reporte.id == null ? 'Crear Nuevo Reporte de Producción' : 'Editar Reporte #' + reporte.id}">
-            Formulario de Reporte
-        </h1>
+            <h1 th:text="${reporte.id == null ? 'Crear Nuevo Reporte de Producción' : 'Editar Reporte #' + reporte.id}">
+                Formulario de Reporte
+            </h1>
 
-        <form th:action="@{/analista/reportes/nuevo}" th:object="${reporte}" method="post" class="item-form">
+            <form th:action="@{/analista/reportes/nuevo}" th:object="${reporte}" method="post" class="item-form">
 
-            <input type="hidden" th:field="*{id}">
+                <input type="hidden" th:field="*{id}">
 
-            <label for="nombre_operario">Nombre Operario</label>
-            <input type="text" id="nombre_operario" th:field="*{nombreOperario}" required>
+                <label for="nombre_operario">Nombre Operario</label>
+                <input type="text" id="nombre_operario" th:field="*{nombreOperario}" required>
 
-            <label for="actividad">Actividad</label>
-            <select id="actividad" th:field="*{actividad}" required>
-                <option th:each="actividad : ${T(com.andres.smartprod.Enum.Actividad).values()}"
-                        th:value="${actividad}"
-                        th:text="${actividad}"></option>
-            </select>
+                <label for="actividad">Actividad</label>
+                <select id="actividad" th:field="*{actividad}" required>
+                    <option th:each="actividad : ${T(com.andres.smartprod.Enum.Actividad).values()}"
+                            th:value="${actividad}"
+                            th:text="${actividad}"></option>
+                </select>
 
-            <label for="cantidad">Cantidad</label>
-            <input type="number" id="cantidad" th:field="*{cantidad}" required>
+                <label for="cantidad">Cantidad</label>
+                <input type="number" id="cantidad" th:field="*{cantidad}" required>
 
-            <label for="fecha">Fecha del Reporte:</label>
-            <input type="date" id="fecha" th:field="*{fecha}" required>
+                <label for="fecha">Fecha del Reporte:</label>
+                <input type="date" id="fecha" th:field="*{fecha}" required>
 
-            <label for="numero_item">Número del Item</label>
-            <select id="numero_item" th:field="*{item}" required>
-                <option th:each="item : ${items}" th:value="${item.numeroItem}" th:text="${item.numeroItem}"></option>
-            </select>
+                <label for="numero_item">Número del Item</label>
+                <select id="numero_item" th:field="*{item}" required>
+                    <option th:each="item : ${items}" th:value="${item.numeroItem}" th:text="${item.numeroItem}"></option>
+                </select>
 
-            <label for="horaInicio">Hora de Inicio:</label>
-            <input type="time" id="horaInicio" th:field="*{horaInicio}" required>
+                <label for="horaInicio">Hora de Inicio:</label>
+                <input type="time" id="horaInicio" th:field="*{horaInicio}" required>
 
-            <label for="horaFinal">Hora de Finalización:</label>
-            <input type="time" id="horaFinal" th:field="*{horaFinal}" required>
+                <label for="horaFinal">Hora de Finalización:</label>
+                <input type="time" id="horaFinal" th:field="*{horaFinal}" required>
 
-            <label for="motivoParo">Motivo Paro</label>
-            <input type="text" id="motivoParo" th:field="*{motivoParo}">
+                <label for="motivoParo">Motivo Paro</label>
+                <input type="text" id="motivoParo" th:field="*{motivoParo}">
 
-            <label for="tiempoParo">Tiempo Paro</label>
-            <input type="number" step="0.1" id="tiempoParo" th:field="*{tiempoParo}">
+                <label for="tiempoParo">Tiempo Paro</label>
+                <input type="number" step="0.1" id="tiempoParo" th:field="*{tiempoParo}">
 
-            <label for="conforme">Conforme</label>
-            <input type="number" id="conforme" th:field="*{conforme}" required>
+                <label for="conforme">Conforme</label>
+                <input type="number" id="conforme" th:field="*{conforme}" required>
 
-            <label for="no_conforme">No Conforme</label>
-            <input type="number" id="no_conforme" th:field="*{noConforme}" required>
+                <label for="no_conforme">No Conforme</label>
+                <input type="number" id="no_conforme" th:field="*{noConforme}" required>
 
-            <label for="motivo">Motivo</label>
-            <input type="text" id="motivo" th:field="*{motivo}">
+                <label for="motivo">Motivo</label>
+                <input type="text" id="motivo" th:field="*{motivo}">
 
-            <label for="disposicionPnc">Disposición PNC</label>
-            <select id="disposicionPnc" th:field="*{disposicionPnc}" required>
-                <option th:each="disp : ${T(com.andres.smartprod.Enum.DisposicionPNC).values()}"
-                        th:value="${disp}"
-                        th:text="${disp.name().replace('_', ' ')}"></option>
-            </select>
+                <label for="disposicionPnc">Disposición PNC</label>
+                <select id="disposicionPnc" th:field="*{disposicionPnc}" required>
+                    <option th:each="disp : ${T(com.andres.smartprod.Enum.DisposicionPNC).values()}"
+                            th:value="${disp}"
+                            th:text="${disp.name().replace('_', ' ')}"></option>
+                </select>
 
-            <button type="submit" class="btn-primary" th:text="${reporte.id == null ? 'Crear Reporte' : 'Actualizar Reporte'}">Guardar</button>
-        </form>
-    </div>
-</section>
+                <button type="submit" class="btn-primary" th:text="${reporte.id == null ? 'Crear Reporte' : 'Actualizar Reporte'}">Guardar</button>
+            </form>
+        </div>
+    </section>
 
 <script th:src="@{/js/script.js}"></script>
 </body>

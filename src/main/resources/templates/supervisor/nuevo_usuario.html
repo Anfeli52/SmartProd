@@ -15,8 +15,9 @@
 
             <h1>Registrar Nuevo Usuario</h1>
 
-            <div th:if="${error}" class="alert alert-danger" style="color: red; margin-bottom: 15px; border: 1px solid red; padding: 10px;">
-                <p th:text="${error}"></p>
+            <div th:if="${error}" style="margin-bottom: 15px;">
+                <p style="color: red; border: 1px solid red; padding: 10px; background-color: #ffeaea; border-radius: 5px;"
+                   th:text="${error}">Mensaje de error.</p>
             </div>
 
             <form th:action="@{/supervisor/usuarios/nuevo}" th:object="${usuario}" method="post" class="item-form">
@@ -28,10 +29,12 @@
                 <input type="email" id="correo" th:field="*{correo}" required>
 
                 <label for="contrasena">Contraseña:</label>
-                <input type="password" id="contrasena" th:field="*{contrasena}" required>
+                <input type="password" id="contrasena" th:field="*{contrasena}" required
+                       placeholder="Mín. 8 caracteres, 1 Mayúscula, 1 Número">
 
                 <label for="rol">Rol</label>
                 <select id="rol" th:field="*{rol}" required>
+                    <option value="" disabled selected>Seleccione un Rol</option>
                     <option value="ANALISTA">ANALISTA</option>
                     <option value="SUPERVISOR">SUPERVISOR</option>
                 </select>

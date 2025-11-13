@@ -36,13 +36,54 @@ public class ReportViewController {
     @PreAuthorize("hasRole('ANALISTA')")
     public String mostrarFormularioNuevoReporte(Model model){
         model.addAttribute("reporte", new Report());
+        // Se asume que item tiene el campo 'numeroItem' para el value y text.
         model.addAttribute("items", itemService.findAllItems());
         return "analista/nuevo_reporte";
     }
 
     @PostMapping("/analista/reportes/nuevo")
     @PreAuthorize("hasRole('ANALISTA')")
-    public String saveReporte(@ModelAttribute("reporte") Report reporte) {
+    public String saveReporte(@ModelAttribute("reporte") Report reporte, Model model) {
+
+        model.addAttribute("items", itemService.findAllItems());
+
+        long totalPiezas = reporte.getCantidad();
+        long piezasConformes = reporte.getConforme();
+        long piezasNoConformes = reporte.getNoConforme();
+        String disposicion = String.valueOf(reporte.getDisposicionPnc());
+        String motivo = reporte.getMotivo();
+        final String NO_APLICA = "NO_APLICA";
+
+        if (piezasConformes + piezasNoConformes != totalPiezas) {
+            model.addAttribute("reporte", reporte);
+            model.addAttribute("error", "Error de conteo: La suma de Piezas Conformes (" + piezasConformes +
+                    ") y No Conformes (" + piezasNoConformes +
+                    ") debe ser igual a la Cantidad total (" + totalPiezas + ").");
+            return "analista/nuevo_reporte";
+        }
+
+        if (piezasNoConformes > 0) {
+            if (NO_APLICA.equals(disposicion)) {
+                model.addAttribute("reporte", reporte);
+                model.addAttribute("error", "Existen Piezas No Conformes. La Disposición PNC no puede ser 'NO APLICA'.");
+                return "analista/nuevo_reporte";
+            }
+        } else {
+            if (!NO_APLICA.equals(disposicion)) {
+                model.addAttribute("reporte", reporte);
+                model.addAttribute("error", "Dado que no hay Piezas No Conformes (0), la Disposición PNC debe ser 'NO APLICA'.");
+                return "analista/nuevo_reporte";
+            }
+        }
+
+        if (piezasNoConformes > 0) {
+            if (motivo == null || motivo.trim().isEmpty()) {
+                model.addAttribute("reporte", reporte);
+                model.addAttribute("error", "Debe especificar el 'Motivo' del fallo si hay Piezas No Conformes.");
+                return "analista/nuevo_reporte";
+            }
+        }
+
         reportService.saveReport(reporte);
         return "redirect:/analista/reportes";
     }

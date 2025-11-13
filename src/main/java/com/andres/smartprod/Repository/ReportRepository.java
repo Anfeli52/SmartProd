@@ -13,8 +13,10 @@ public interface ReportRepository extends JpaRepository <Report, Long>{
     @Query("SELECT r.actividad, SUM(r.conforme) FROM Report r GROUP BY r.actividad")
     List<Object[]> sumCantidadByActividad();
 
-    // 2. Datos de Calidad (Conforme vs. No Conforme)
     @Query("SELECT SUM(r.conforme), SUM(r.noConforme) FROM Report r")
     List<Object[]> sumConformeAndNoConforme();
+
+    @Query("SELECT r.item.numeroItem, SUM(r.cantidad) FROM Report r GROUP BY r.item.numeroItem ORDER BY SUM(r.cantidad) DESC LIMIT 5")
+    List<Object[]> sumTop5ItemsByQuantity();
 
 }

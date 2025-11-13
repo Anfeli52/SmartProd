@@ -6,7 +6,8 @@
     <link rel="stylesheet" th:href="@{/css/dashboard.css}">
     <link rel="stylesheet" th:href="@{/css/dashboard_supervisor.css}">
     <link href='https://cdn.boxicons.com/fonts/basic/boxicons.min.css' rel='stylesheet'>
-    <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <title>Dashboard Supervisor</title>
 </head>
 <body>
     <div th:replace="~{supervisor/fragment_supervisor :: menu}"></div>
@@ -15,60 +16,137 @@
             <div class="overview-boxes">
                 <div class="box">
                     <div class="right-side">
-                        <div class="box-topic">Items Registrados</div>
-                        <div class="number" th:text="${itemsTotales}">0</div>
+                        <div class="box-topic">Ítems en Producción</div>
+                        <div class="number" th:text="${itemsEnProduccion}">0</div>
                         <div class="indicator">
-                            <i class='bxr  bx-arrow-up-stroke'></i>
-                            <span class="text">Since last month</span>
+                            <i class='bxr bx-factory'></i>
+                            <span class="text">Procesando ahora</span>
                         </div>
                     </div>
-                    <i class='bxr  bx-light-bulb-on bulb'></i> 
+                    <i class='bxr bx-box-light box-icon'></i>
                 </div>
                 <div class="box">
                     <div class="right-side">
-                        <div class="box-topic">Reportes Disponibles</div>
-                        <div class="number" th:text="${registrosTotales}">0</div>
+                        <div class="box-topic">Tasa de Desperdicio</div>
+                        <div class="number" th:text="${tasaDesperdicio} + '%'">0%</div>
                         <div class="indicator">
-                            <i class='bxr  bx-arrow-up-stroke'></i>
-                            <span class="text">Up from yesterday</span>
+                            <i class='bxr bx-arrow-up-stroke' th:classappend="${tasaDesperdicio > 5 ? 'down' : ''}"></i>
+                            <span class="text" th:text="${tasaDesperdicio > 5 ? '¡Alerta!' : 'Meta Cumplida'}"></span>
                         </div>
                     </div>
-                    <i class='bxr  bx-folder-check folder'></i>
+                    <i class='bxr bx-trash-x trash'></i>
                 </div>
                 <div class="box">
                     <div class="right-side">
-                        <div class="box-topic">Horas Trabajadas</div>
-                        <div class="number" th:text="${horasTrabajadas}">0</div>
+                        <div class="box-topic">Total de Usuarios</div>
+                        <div class="number" th:text="${totalUsuarios}">0</div>
                         <div class="indicator">
-                            <i class='bxr bx-arrow-up-stroke'></i>
-                            <span class="text">Up from yesterday</span>
+                            <i class='bxr bx-user-plus'></i>
+                            <span class="text">Supervisores + Analistas</span>
                         </div>
                     </div>
-                    <i class='bxr  bx-hard-hat hat'></i> 
+                    <i class='bxr bx-user-circle user-icon'></i>
                 </div>
                 <div class="box">
                     <div class="right-side">
-                        <div class="box-topic">Piezas Desechadas</div>
-                        <div class="number" th:text="${piezasDesechadas}">0</div>
+                        <div class="box-topic">Retraso Promedio</div>
+                        <div class="number" th:text="${retrasoPromedio} + ' min'">0 min</div>
                         <div class="indicator">
-                            <i class='bxr  bx-arrow-down-stroke down'></i> 
-                            <span class="text">Down From Today</span>
+                            <i class='bxr bx-arrow-down-stroke' th:classappend="${retrasoPromedio > 10 ? 'down' : ''}"></i>
+                            <span class="text" th:text="${retrasoPromedio > 10 ? 'Necesita Atención' : 'A tiempo'}"></span>
                         </div>
                     </div>
-                    <i class='bxr  bx-trash-x trash'></i> 
+                    <i class='bxr bx-timer timer'></i>
                 </div>
             </div>
             <div class="charts-container">
                 <div class="chart-box">
-                    <canvas id="produccionActividadChart"></canvas>
+                    <canvas id="eficienciaEtapasChart"></canvas>
                 </div>
                 <div class="chart-box">
-                    <canvas id="calidadChart"></canvas>
+                    <canvas id="desperdicioTipoFalloChart"></canvas>
                 </div>
             </div>
         </div>
     </section>
 
     <script th:src="@{/js/script.js}"></script>
+    <script th:inline="javascript">
+        const eficienciaEtapas = /*[[${eficienciaEtapas}]]*/ [
+            { etapa: 'Lavado', eficiencia: 85 },
+            { etapa: 'Pintura', eficiencia: 92 },
+            { etapa: 'Horneo', eficiencia: 78 }
+        ];
+
+        const desperdicioFallo = /*[[${desperdicioFallo}]]*/ [
+            { fallo: 'Mala Adherencia', porcentaje: 45 },
+            { fallo: 'Sobre Pintado', porcentaje: 30 },
+            { fallo: 'Daño de Horno', porcentaje: 25 }
+        ];
+
+        const labelsEficiencia = eficienciaEtapas.map(item => item.etapa);
+        const valuesEficiencia = eficienciaEtapas.map(item => item.eficiencia);
+
+        const ctxEficiencia = document.getElementById('eficienciaEtapasChart');
+        new Chart(ctxEficiencia, {
+            type: 'bar',
+            data: {
+                labels: labelsEficiencia,
+                datasets: [{
+                    label: 'Eficiencia (%)',
+                    data: valuesEficiencia,
+                    backgroundColor: ['rgba(255, 159, 64, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(255, 99, 132, 0.8)'],
+                    borderColor: ['rgba(255, 159, 64, 1)', 'rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Eficiencia por Etapa de Proceso (Objetivo: 90%)'
+                    },
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+
+        const labelsFallo = desperdicioFallo.map(item => item.fallo);
+        const valuesFallo = desperdicioFallo.map(item => item.porcentaje);
+
+        const ctxFallo = document.getElementById('desperdicioTipoFalloChart');
+        new Chart(ctxFallo, {
+            type: 'doughnut',
+            data: {
+                labels: labelsFallo,
+                datasets: [{
+                    label: 'Porcentaje de Desperdicio',
+                    data: valuesFallo,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.8)',
+                        'rgba(54, 162, 235, 0.8)',
+                        'rgba(255, 206, 86, 0.8)'
+                    ],
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Distribución de Fallos de Calidad'
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 </html>

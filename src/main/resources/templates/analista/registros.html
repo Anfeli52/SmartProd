@@ -81,7 +81,6 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                         <button type="submit" class="btn btn-primary">Calcular Costo Total</button>
                     </div>
                 </form>
@@ -98,12 +97,10 @@
             const pieces = document.getElementById('inputPieces').value;
             const resultDiv = document.getElementById('calculationResult');
 
-            // Preparar los datos para enviar al controlador de Spring (como x-www-form-urlencoded)
             const formData = new URLSearchParams();
             formData.append('itemId', itemId);
             formData.append('pieces', pieces);
 
-            // Llama al endpoint de Java que creaste: /api/analista/items/calculate
             fetch('/api/analista/items/calculate', {
                 method: 'POST',
                 headers: {
@@ -113,13 +110,11 @@
             })
                 .then(response => {
                     if (!response.ok) {
-                        // Si el servidor retorna un error (4xx o 5xx)
                         return response.json().then(err => { throw new Error(err.message || response.statusText); });
                     }
-                    return response.json(); // Parsea el JSON a un objeto JS
+                    return response.json();
                 })
                 .then(data => {
-                    // Éxito: 'data' es el objeto CalculationResult de Java
                     let htmlResult = `
                     <p><strong>Resultado para ${data.pieces} piezas:</strong></p>
                     <ul>
@@ -135,7 +130,6 @@
                     resultDiv.style.display = 'block';
                 })
                 .catch(error => {
-                    // Manejar errores
                     console.error('Error de cálculo:', error);
                     resultDiv.className = 'mt-3 alert alert-danger';
                     resultDiv.innerHTML = 'Error al realizar el cálculo: ' + (error.message || 'Error desconocido.');
