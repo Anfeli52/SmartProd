@@ -28,10 +28,20 @@ public class DashboardController {
     @PreAuthorize("hasRole('SUPERVISOR')")
     public String viewDashboard(Model model) {
 
-        model.addAttribute("itemsEnProduccion", 45);
-        model.addAttribute("tasaDesperdicio", 4.5);
-        model.addAttribute("totalUsuarios", 12);
-        model.addAttribute("retrasoPromedio", 8.5);
+        String horasTrabajadas = reportService.calcularHorasTrabajadas();
+        Long itemsTotales = itemService.contartTotalItems();
+        Long registrosTotales = reportService.contarTotalReportes();
+        Long piezasDesechadas = reportService.calcularPiezasDesechadas();
+
+        // --- CÁLCULO DINÁMICO DE USUARIOS ---
+        Long totalUsuarios = userService.countTotalUsers();
+
+        model.addAttribute("horasTrabajadas", horasTrabajadas);
+        model.addAttribute("itemsTotales", itemsTotales);
+        model.addAttribute("registrosTotales", registrosTotales);
+        model.addAttribute("piezasDesechadas", piezasDesechadas);
+        model.addAttribute("itemsMasUsados", reportService.getTopUsedItems());
+        model.addAttribute("calidadTotal", reportService.getCalidadTotal());
 
         List<Object[]> eficienciaEtapas = Arrays.asList(
                 new Object[]{"Lavado", 85},
@@ -46,6 +56,15 @@ public class DashboardController {
                 new Object[]{"Daño de Horno", 25}
         );
         model.addAttribute("desperdicioFallo", desperdicioFallo);
+
+        model.addAttribute("itemsEnProduccion", 45);
+        model.addAttribute("tasaDesperdicio", 4.5);
+        // VALOR CORREGIDO: Usando el valor dinámico de la base de datos
+        model.addAttribute("totalUsuarios", totalUsuarios);
+        model.addAttribute("retrasoPromedio", 8.5);
+
+        // Carga de reportes del día (asumiendo que quieres mantenerla)
+        // model.addAttribute("reportesDelDia", reportService.findReportsForToday());
 
         return "supervisor/supervisor_dashboard";
     }

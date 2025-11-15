@@ -1,6 +1,15 @@
 /* ============================= */
 /* Estilos generales             */
 /* ============================= */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    /* Esto previene problemas de doble barra de desplazamiento */
+    overflow-x: hidden;
+}
+
+/* El resto de estilos de body deben ir aquí */
 body {
     font-family: Arial, sans-serif;
 }
@@ -150,17 +159,26 @@ body {
 /* ===================================== */
 
 .modal {
+    /* Propiedades clave para cubrir toda la vista */
     position: fixed;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
+
     width: 100%;
     height: 100%;
+
+    /* Estilos visuales */
     background: rgba(0, 0, 0, 0.55);
     backdrop-filter: blur(4px);
     display: none; /* oculto por defecto */
     justify-content: center;
     align-items: center;
     z-index: 999;
+
+    /* IMPORTANTE: Permite que el contenido dentro del modal sea desplazable si es necesario */
+    overflow-y: auto;
 }
 
 .modal[open] {

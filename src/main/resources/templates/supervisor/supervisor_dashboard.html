@@ -19,11 +19,11 @@
                         <div class="box-topic">Ítems en Producción</div>
                         <div class="number" th:text="${itemsEnProduccion}">0</div>
                         <div class="indicator">
-                            <i class='bxr bx-factory'></i>
+                            <i class='bxr bx-arrow-up-stroke' th:classappend="${tasaDesperdicio > 5 ? 'down' : ''}"></i>
                             <span class="text">Procesando ahora</span>
                         </div>
                     </div>
-                    <i class='bxr bx-box-light box-icon'></i>
+                    <i class='bxr bx-factory factory'></i>
                 </div>
                 <div class="box">
                     <div class="right-side">
@@ -61,10 +61,10 @@
             </div>
             <div class="charts-container">
                 <div class="chart-box">
-                    <canvas id="eficienciaEtapasChart"></canvas>
+                    <canvas id="produccionActividadChart"></canvas>
                 </div>
                 <div class="chart-box">
-                    <canvas id="desperdicioTipoFalloChart"></canvas>
+                    <canvas id="calidadChart"></canvas>
                 </div>
             </div>
         </div>
@@ -72,31 +72,24 @@
 
     <script th:src="@{/js/script.js}"></script>
     <script th:inline="javascript">
-        const eficienciaEtapas = /*[[${eficienciaEtapas}]]*/ [
-            { etapa: 'Lavado', eficiencia: 85 },
-            { etapa: 'Pintura', eficiencia: 92 },
-            { etapa: 'Horneo', eficiencia: 78 }
-        ];
 
-        const desperdicioFallo = /*[[${desperdicioFallo}]]*/ [
-            { fallo: 'Mala Adherencia', porcentaje: 45 },
-            { fallo: 'Sobre Pintado', porcentaje: 30 },
-            { fallo: 'Daño de Horno', porcentaje: 25 }
-        ];
+        // DATOS PARA EL GRÁFICO DE BARRAS: Ítems más usados (Nueva variable)
+        const itemsMasUsados = /*[[${itemsMasUsados}]]*/ [];
+        const labelsItems = itemsMasUsados.map(item => item[0]);
+        const valuesItems = itemsMasUsados.map(item => item[1]);
 
-        const labelsEficiencia = eficienciaEtapas.map(item => item.etapa);
-        const valuesEficiencia = eficienciaEtapas.map(item => item.eficiencia);
-
-        const ctxEficiencia = document.getElementById('eficienciaEtapasChart');
-        new Chart(ctxEficiencia, {
+        const ctxBarras = document.getElementById('produccionActividadChart');
+        new Chart(ctxBarras, {
             type: 'bar',
             data: {
-                labels: labelsEficiencia,
+                // Usando las nuevas variables
+                labels: labelsItems,
                 datasets: [{
-                    label: 'Eficiencia (%)',
-                    data: valuesEficiencia,
-                    backgroundColor: ['rgba(255, 159, 64, 0.8)', 'rgba(75, 192, 192, 0.8)', 'rgba(255, 99, 132, 0.8)'],
-                    borderColor: ['rgba(255, 159, 64, 1)', 'rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                    label: 'Cantidad de Veces Registrado',
+                    // Usando las nuevas variables
+                    data: valuesItems,
+                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
                     borderWidth: 1
                 }]
             },
@@ -105,34 +98,33 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Eficiencia por Etapa de Proceso (Objetivo: 90%)'
+                        // Nuevo Título
+                        text: 'Top 5 Ítems Más Utilizados en Producción'
                     },
                     legend: { display: false }
                 },
                 scales: {
-                    y: {
-                        beginAtZero: true,
-                        max: 100
-                    }
+                    y: { beginAtZero: true }
                 }
             }
         });
 
-        const labelsFallo = desperdicioFallo.map(item => item.fallo);
-        const valuesFallo = desperdicioFallo.map(item => item.porcentaje);
 
-        const ctxFallo = document.getElementById('desperdicioTipoFalloChart');
-        new Chart(ctxFallo, {
+        const dataCalidad = /*[[${calidadTotal}]]*/ [];
+        const conforme = dataCalidad[0] ?? 0;
+        const noConforme = dataCalidad[1] ?? 0;
+
+        const ctxDona = document.getElementById('calidadChart');
+        new Chart(ctxDona, {
             type: 'doughnut',
             data: {
-                labels: labelsFallo,
+                labels: ['Conforme', 'No Conforme'],
                 datasets: [{
-                    label: 'Porcentaje de Desperdicio',
-                    data: valuesFallo,
+                    label: 'Unidades',
+                    data: [conforme, noConforme],
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.8)',
-                        'rgba(54, 162, 235, 0.8)',
-                        'rgba(255, 206, 86, 0.8)'
+                        'rgba(75, 192, 192, 0.8)',
+                        'rgba(255, 99, 132, 0.8)'
                     ],
                     hoverOffset: 4
                 }]
@@ -142,11 +134,12 @@
                 plugins: {
                     title: {
                         display: true,
-                        text: 'Distribución de Fallos de Calidad'
+                        text: 'Proporción de Calidad Total'
                     }
                 }
             }
         });
+
     </script>
 </body>
 </html>

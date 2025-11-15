@@ -3,7 +3,6 @@ package com.andres.smartprod.Controller;
 import com.andres.smartprod.Model.Report;
 import com.andres.smartprod.Service.ItemService;
 import com.andres.smartprod.Service.ReportService;
-import com.andres.smartprod.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -36,7 +35,6 @@ public class ReportViewController {
     @PreAuthorize("hasRole('ANALISTA')")
     public String mostrarFormularioNuevoReporte(Model model){
         model.addAttribute("reporte", new Report());
-        // Se asume que item tiene el campo 'numeroItem' para el value y text.
         model.addAttribute("items", itemService.findAllItems());
         return "analista/nuevo_reporte";
     }
@@ -47,13 +45,27 @@ public class ReportViewController {
 
         model.addAttribute("items", itemService.findAllItems());
 
-        long totalPiezas = reporte.getCantidad();
-        long piezasConformes = reporte.getConforme();
-        long piezasNoConformes = reporte.getNoConforme();
+        // Se usan Long (clase envolvente) para poder chequear por nulls (espacios vacíos del formulario)
+        Long totalPiezas = reporte.getCantidad();
+        Long piezasConformes = reporte.getConforme();
+        Long piezasNoConformes = reporte.getNoConforme();
         String disposicion = String.valueOf(reporte.getDisposicionPnc());
         String motivo = reporte.getMotivo();
         final String NO_APLICA = "NO_APLICA";
 
+        // ********************************************
+        // 1. VALIDACIÓN: Campos Numéricos Obligatorios (Nulidad)
+        // ********************************************
+        if (totalPiezas == null || piezasConformes == null || piezasNoConformes == null) {
+            model.addAttribute("reporte", reporte);
+            model.addAttribute("error", "Error: Los campos 'Cantidad (Total de Piezas)', 'Piezas Conformes' y 'Piezas No Conformes' no pueden estar vacíos.");
+            return "analista/nuevo_reporte";
+        }
+
+        // ********************************************
+        // 2. VALIDACIÓN: Suma de Piezas
+        // Usamos los Long directamente. Java realiza el unboxing automático a 'long' para la operación.
+        // ********************************************
         if (piezasConformes + piezasNoConformes != totalPiezas) {
             model.addAttribute("reporte", reporte);
             model.addAttribute("error", "Error de conteo: La suma de Piezas Conformes (" + piezasConformes +
@@ -62,6 +74,9 @@ public class ReportViewController {
             return "analista/nuevo_reporte";
         }
 
+        // ********************************************
+        // 3. VALIDACIÓN: Disposición PNC basada en Piezas No Conformes
+        // ********************************************
         if (piezasNoConformes > 0) {
             if (NO_APLICA.equals(disposicion)) {
                 model.addAttribute("reporte", reporte);
@@ -76,6 +91,9 @@ public class ReportViewController {
             }
         }
 
+        // ********************************************
+        // 4. VALIDACIÓN: Motivo si hay Piezas No Conformes
+        // ********************************************
         if (piezasNoConformes > 0) {
             if (motivo == null || motivo.trim().isEmpty()) {
                 model.addAttribute("reporte", reporte);

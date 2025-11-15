@@ -54,6 +54,7 @@ public class ReportService {
         return reportRepository.sumTop5ItemsByQuantity();
     }
 
+
     public List<Long> getCalidadTotal() {
         List<Object[]> resultados = reportRepository.sumConformeAndNoConforme();
         if (resultados == null || resultados.isEmpty()) {

@@ -107,6 +107,42 @@
     border-radius: 12px;
 }
 
+.overview-boxes .box .user-icon{
+    font-size: 32px;
+    font-weight: 500;
+    height: 50px;
+    width: 50px;
+    background: #C0F2D8;
+    color: #28D47D;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+.overview-boxes .box .timer{
+    font-size: 32px;
+    font-weight: 500;
+    height: 50px;
+    width: 50px;
+    background: #cce5ff;
+    color: #66b0ff;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+.overview-boxes .box .factory{
+    font-size: 32px;
+    font-weight: 500;
+    height: 50px;
+    width: 50px;
+    background: #ffe8b3;
+    color: #ffc233;
+    line-height: 50px;
+    text-align: center;
+    border-radius: 12px;
+}
+
 .charts-container {
     display: flex;
     justify-content: space-between;
